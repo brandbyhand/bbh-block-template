@@ -1,0 +1,25 @@
+{
+	"name": "@bbh/custom-block-template",
+	"version": "1.0.0",
+	"description": "This is a template for @wordpress/create-block that creates a boiler plate project",
+	"author": "Brand by Hand",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"create block",
+		"block template",
+		"q"
+	],
+	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/docs/getting-started/quick-start-guide",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/WordPress/gutenberg.git",
+		"directory": "packages/create-block-tutorial-template"
+	},
+	"bugs": {
+		"url": "https://github.com/WordPress/gutenberg/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
