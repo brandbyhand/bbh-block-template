@@ -7,17 +7,16 @@
 	"keywords": [
 		"wordpress",
 		"create block",
-		"block template",
-		"q"
+		"block template"
 	],
 	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/docs/getting-started/quick-start-guide",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
-		"directory": "packages/create-block-tutorial-template"
+		"url": "https://github.com/brandbyhand/bbh-block-template",
+		"directory": "bbh-block-template"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/brandbyhand/bbh-block-template/issues"
 	},
 	"publishConfig": {
 		"access": "public"

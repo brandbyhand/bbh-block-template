@@ -1,0 +1,14 @@
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+
+module.exports = {
+	...defaultConfig,
+	entry: {
+		main: ['./src/block/editor/js/block.js', './src/block/editor/js/edit.js', './src/block/editor/js/save.js'],
+		view: './src/block/editor/js/view.js',
+	},
+	output: {
+		...defaultConfig.output,
+		path: __dirname + '/dist', // Adjust output path if needed
+		filename: '[name].js',
+	},
+};
