@@ -1,14 +1,33 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const path = require('path');
+const StyleLintPl = require('stylelint-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const slash = require('slash');
+
 
 module.exports = {
 	...defaultConfig,
 	entry: {
 		main: ['./src/block/editor/js/block.js', './src/block/editor/js/edit.js', './src/block/editor/js/save.js'],
-		view: './src/block/editor/js/view.js',
+		view: './src/block/frontend/js/view.js',
 	},
 	output: {
 		...defaultConfig.output,
 		path: __dirname + '/dist', // Adjust output path if needed
 		filename: '[name].js',
 	},
+	plugins: [
+		new StyleLintPl({
+      		context: slash(path.resolve(process.cwd())),
+      		configFile: slash(path.resolve(process.cwd(), 'stylelint.config.js')),
+      		files: [slash(path.resolve('src', 'block', 'editor', 'scss')), slash(path.resolve('src', 'block', 'frontend', 'scss'))],
+      		failOnError: true,
+      		failOnWarning: true,
+    	}),
+    	new ESLintPlugin({
+      		files: [slash(path.resolve(process.cwd(), 'src', 'block','editor', 'js')), slash(path.resolve(process.cwd(), 'src', 'block','frontend', 'js'))],
+      		failOnError: true,
+      		failOnWarning: true,
+    	})
+	]
 };

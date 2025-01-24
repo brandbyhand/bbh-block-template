@@ -28,8 +28,9 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function save( { attributes } ) {
 	const {  } = attributes;
 
-	return (<p { ...useBlockProps.save() }>
-		{ __('{{{title}}} – hello from the editor!',
+	return (
+		<p { ...useBlockProps.save() }>
+			{ __('{{{title}}} – hello from the editor!',
 				'{{{textdomain}}}' ) }
 		 </p>);
 }

@@ -1,0 +1,23 @@
+/**
+ * Use this for block settings and functionality
+ * But keep inspector controls out
+ *
+ * This component is imported inside block.js
+ * 
+ * Example: 
+ * Given a block that lets you select images using MediaUpload and adds have specific settings for that block. 
+ * You would build the MediaUpload in this component and handle showing the selected images. 
+ * 
+ * In inspector-controls.js you would setup settings like image sizes, weather to show images as gallery or slider etc.
+ */
+
+import { __ } from '@wordpress/i18n';
+
+export const Editor = (props) => {
+    const { attributes, setAttributes, isSelected} = props;
+	return (
+        <>
+        <p>{{{title}}} block</p>
+        </>
+    );
+};

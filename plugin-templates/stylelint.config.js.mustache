@@ -1,0 +1,30 @@
+module.exports = {
+  extends: ['stylelint-config-standard'],
+  "ignoreFiles": [
+    "**/*.js",
+    "node_modules/**/*.css",
+    "node_modules/**/*.js",
+    "dist/*.css",
+    "dist/*.js",
+  ],
+  rules: {
+    'at-rule-no-unknown': null,
+    'function-no-unknown': null,
+    'max-nesting-depth': 7,
+    'number-max-precision': 10,
+    'no-descending-specificity': null,
+    'no-duplicate-selectors': null,
+    'font-family-no-missing-generic-family-keyword': null,
+    'comment-empty-line-before': [
+      'always',
+      {
+        except: ['first-nested'],
+      },
+    ],
+    'selector-id-pattern': null, // Disable ID selector pattern enforcement
+    'selector-class-pattern': null, // Disable kebab-case enforcement globally
+    'alpha-value-notation': 'number', 
+    'color-function-notation': 'legacy',
+    'declaration-block-no-redundant-longhand-properties': null,
+  },
+};

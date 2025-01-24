@@ -1,0 +1,29 @@
+/**
+ * Use this for inspector settings (the right most menu bar that is show when a block is selected)
+ * Keep block markup out
+ *
+ * This component is imported inside block.js
+ *
+ * Example:
+ * Given a block that lets you select images using MediaUpload and adds have specific settings for that block.
+ * You would build the MediaUpload in the editor-controls component and handle showing the selected images.
+ *
+ * In this component you would setup settings like image sizes, weather to show images as gallery or slider etc.
+ */
+
+import { __ } from '@wordpress/i18n';
+import { PanelBody } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+
+export const Inspector = (props) => {
+	const { attributes, setAttributes, isSelected } = props;
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody title={__('{{{title}}} settings')} initialOpen={open}>
+					{/* Include inspector settings here */}
+				</PanelBody>
+		</InspectorControls>
+		</>
+	);
+};
