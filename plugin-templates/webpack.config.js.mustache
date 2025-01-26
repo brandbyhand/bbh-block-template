@@ -2,32 +2,45 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
 const StyleLintPl = require('stylelint-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const slash = require('slash');
 
 
-module.exports = {
-	...defaultConfig,
-	entry: {
-		main: ['./src/block/editor/js/block.js', './src/block/editor/js/edit.js', './src/block/editor/js/save.js'],
-		view: './src/block/frontend/js/view.js',
-	},
-	output: {
-		...defaultConfig.output,
-		path: __dirname + '/dist', // Adjust output path if needed
-		filename: '[name].js',
-	},
-	plugins: [
-		new StyleLintPl({
-      		context: slash(path.resolve(process.cwd())),
-      		configFile: slash(path.resolve(process.cwd(), 'stylelint.config.js')),
-      		files: [slash(path.resolve('src', 'block', 'editor', 'scss')), slash(path.resolve('src', 'block', 'frontend', 'scss'))],
-      		failOnError: true,
-      		failOnWarning: true,
-    	}),
-    	new ESLintPlugin({
-      		files: [slash(path.resolve(process.cwd(), 'src', 'block','editor', 'js')), slash(path.resolve(process.cwd(), 'src', 'block','frontend', 'js'))],
-      		failOnError: true,
-      		failOnWarning: true,
-    	})
-	]
-};
+module.exports = (async () => {
+  /* Newer version of slash requires module syntax. A fix for that is using async/await import */
+  const { default: slash } = await import('slash');
+
+  return (env, argv) => {
+    /*
+     * Setup boolean check to toggle configuration settings based on whether the environment should be optimized for production or not.
+     */
+    const optimizeForProduction = typeof argv.mode !== 'undefined' && argv.mode === 'production';
+
+    return {
+      ...defaultConfig,
+      entry: {
+        main: ['./src/block/editor/js/block.js', './src/block/editor/js/edit.js', './src/block/editor/js/save.js'],
+        view: './src/block/frontend/js/view.js',
+      },
+      output: {
+        ...defaultConfig.output,
+        path: __dirname + '/dist', // Adjust output path if needed
+        filename: '[name].js',
+      },
+      plugins: [
+        ...defaultConfig.plugins,
+        new StyleLintPl({
+          context: slash(path.resolve(process.cwd())),
+          configFile: slash(path.resolve(process.cwd(), 'stylelint.config.js')),
+          files: [slash(path.resolve('src', 'block', 'editor', 'scss')), slash(path.resolve('src', 'block', 'frontend', 'scss'))],
+          failOnError: !optimizeForProduction, // Fail only in non-production mode
+          failOnWarning:  !optimizeForProduction, // Fail on warnings only in non-production mode
+        }),
+        new ESLintPlugin({
+          files: [slash(path.resolve(process.cwd(), 'src', 'block', 'editor', 'js')), slash(path.resolve(process.cwd(), 'src', 'block', 'frontend', 'js'))],
+          failOnError: !optimizeForProduction, // Fail only in non-production mode
+          failOnWarning: !optimizeForProduction, // Fail on warnings only in non-production mode
+          emitWarning: optimizeForProduction, // Emit warnings in production mode (ensure the build process does not crash on errors)
+        }),
+      ],
+    };
+  };
+})();
